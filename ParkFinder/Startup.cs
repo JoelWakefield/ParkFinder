@@ -50,7 +50,7 @@ namespace ParkFinder
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=ParkData}/{action=Index}/{id?}");
             });
         }
     }

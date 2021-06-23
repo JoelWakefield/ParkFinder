@@ -18,10 +18,8 @@ namespace ParkFinder.Controllers
             _logger = logger;
         }
 
-        [Route("parkdata")]
         public IActionResult Index()
         {
-
             return View();
         }
 
