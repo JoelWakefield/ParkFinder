@@ -6,11 +6,14 @@
     <h1>Parks</h1>
 
     <div>
-        <ul style="list-style-type: none;">
-            @foreach (var park in ViewBag.Parks)
-            {
-                <li>@park.ParkName</li>
-            }
-        </ul>
+        @foreach (var park in ViewBag.Parks)
+        {
+            <div>
+                <h3>@park.ParkName</h3>
+                <p><i>Borough:</i> @park.Borough</p>
+                <p><i>Acres:</i> @park.Acres</p>
+                <p><i>Description:</i> @Html.Raw(park.Description)</p>
+            </div>
+        }
     </div>
 </div>
