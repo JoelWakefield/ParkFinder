@@ -22,22 +22,17 @@ namespace ParkFinder.Controllers
             _apiHelper = apiHelper;
         }
         
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
             //  Get data
             List<Park> parks = await _apiHelper.GetCache(ApiUrl);
 
             //  filter out results
-            var parameters = Request.Query;
-
-            if (parameters.ContainsKey("search"))
+            if (search != null)
             {
-
-                var values = parameters["search"];
-
                 ViewBag.Parks = parks.Where(p =>
                 {
-                    return p.ParkName.Contains(values) || p.Description.Contains(values);
+                    return p.ParkName.Contains(search) || p.Description.Contains(search);
                 }).ToList();
             }
             else
