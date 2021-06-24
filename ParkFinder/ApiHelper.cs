@@ -54,7 +54,7 @@ namespace ParkFinder
             return items;
         }
 
-        public async Task<List<Park>> Get(string search)
+        public async Task<List<Park>> Get(string search = null)
         {
             List<Park> parks;
 

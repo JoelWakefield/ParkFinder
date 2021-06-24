@@ -2,8 +2,30 @@
     ViewData["Title"] = "Home Page";
 }
 
+
+<style>
+    #searchbar {
+        margin: 1em 0;
+    }
+
+    #search {
+        width: 40%;
+    }
+
+    #submitbtn {
+        width: 100px;
+    }
+</style>
+
 <div>
     <h1>Parks</h1>
+
+    <div id="searchbar">
+        @using (Html.BeginForm("Index", "ParkData", FormMethod.Post))
+        {
+            <input type="text" name="search" id="search" />
+        }
+    </div>
 
     <div>
         @foreach (var park in ViewBag.Parks)
