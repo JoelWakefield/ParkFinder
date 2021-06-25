@@ -80,7 +80,7 @@ namespace ParkFinder
             }
 
             //  filter out results
-            if (search != null)
+            if (!string.IsNullOrWhiteSpace(search))
             {
                 _logger.LogInformation("returning filtered data");
 

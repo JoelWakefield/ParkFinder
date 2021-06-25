@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.JSInterop;
 using ParkFinder.Models;
 
 namespace ParkFinder.Controllers
@@ -18,15 +19,16 @@ namespace ParkFinder.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ViewBag.Parks = await _apiHelper.Get();
-
-            return View();
+            var data = await _apiHelper.Get();
+            return View(data);
         }
 
-        public async Task<IActionResult> GetParksAsync(string query)
+        [HttpGet]
+        [Route("jsparkdata/getparkdata/{search}")]
+        public async Task<JsonResult> GetParkData(string search)
         {
-            var data = await _apiHelper.Get(query);
-
+            search = search == "undefined" ? null : search;
+            var data = await _apiHelper.Get(search);
             return Json(data);
         } 
     }

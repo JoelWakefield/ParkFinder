@@ -21,7 +21,6 @@ namespace ParkFinder.Controllers
         public async Task<IActionResult> Index(string search)
         {
             ViewBag.Parks = await _apiHelper.Get(search);
-
             return View();
         }
 
