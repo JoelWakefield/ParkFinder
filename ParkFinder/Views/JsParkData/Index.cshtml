@@ -33,59 +33,45 @@
 
 
 <script>
-    //(async function () {
-    const txtSearch = document.querySelector('#search');
-    const parks = document.querySelector('#data');
+    (async function () {
+        const txtSearch = document.querySelector('#search');
+        const parks = document.querySelector('#data');
 
-    const addPark = (park) => {
-        let h3 = document.createElement('h3');
+        const addPark = (park) => {
+            let name = document.createElement('h3');
+            let borough = document.createElement('p');
+            let acres = document.createElement('p');
+            let description = document.createElement('p');
 
-        let boroughName = document.createElement('i');
-        let acresName = document.createElement('i');
-        let descriptionName = document.createElement('i');
+            let div = document.createElement('div');
 
-        boroughName.textContent = 'Borough: ';
-        acresName.textContent = 'Acres: ';
-        descriptionName.textContent = 'Description: ';
+            name.textContent = park.parkName;
+            borough.innerHTML = '<i>Borough: </i>' + park.borough;
+            acres.innerHTML = '<i>Acres: </i>' + park.acres;
+            description.innerHTML = '<i>Description: </i> <p/>' + park.description;
 
-        let borough = document.createElement('p');
-        let acres = document.createElement('p');
-        let description = document.createElement('p');
+            div.appendChild(name);
+            div.appendChild(borough);
+            div.appendChild(acres);
+            div.appendChild(description);
 
-        borough.appendChild(boroughName);
-        acres.appendChild(acresName);
-        description.appendChild(descriptionName);
-
-        borough.textContent = park.parkName;
-        acres.textContent = park.acres;
-        description.innerHTML = park.description;
-
-        let div = document.createElement('div');
-
-        div.appendChild(h3);
-        div.appendChild(borough);
-        div.appendChild(acres);
-        div.appendChild(description);
-
-        parks.appendChild(div);
-    }
-
-    const addParks = (search) => {
-        console.log(search);
-
-        fetch(`/JsParkData/GetParkData/${search}`)
-            .then(response => response.json())
-            .then(json => {
-                parks.innerHTML = '';
-                json.forEach(p => addPark(p))
-            });
+            parks.appendChild(div);
         }
 
-    txtSearch.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter')
-            addParks(txtSearch.value);
-    });
+        const addParks = (search) => {
+            fetch(`/JsParkData/GetParkData/${search}`)
+                .then(response => response.json())
+                .then(json => {
+                    parks.innerHTML = '';
+                    json.forEach(p => addPark(p))
+                });
+        }
 
-    addParks();
-    //})()
+        txtSearch.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter')
+                addParks(txtSearch.value);
+        });
+
+        addParks();
+    })()
 </script>
