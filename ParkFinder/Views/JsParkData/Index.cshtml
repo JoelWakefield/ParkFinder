@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<style>
+    #searchbar {
+        margin: 1em 0;
+    }
+
+    #search {
+        width: 40%;
+    }
+
+    #submitbtn {
+        width: 100px;
+    }
+</style>
+
+
+<div>
+    <h1>JS Parks</h1>
+
+    <div id="searchbar">
+        <input type="text" name="search" id="searchbox" />
+    </div>
+
+    <div>
+        @foreach (var park in ViewBag.Parks)
+        {
+            <div>
+                <h3>@park.ParkName</h3>
+                <p><i>Borough:</i> @park.Borough</p>
+                <p><i>Acres:</i> @park.Acres</p>
+                <p><i>Description:</i> @Html.Raw(park.Description)</p>
+            </div>
+        }
+    </div>
+</div>
+
+
+<script>
+    (async function () {
+        const txtSearch = document.getElementById('searchbox');
+
+        txtSearch.addEventListener('keypress', (e) => {
+            console.log('submitted');
+
+            if (e.key === 'Enter') {
+                fetch("/jsparkdata/getparksasync?search={query}")
+                    .then(response => response.json)
+                    .then(data => @ViewBag.Parks = data);
+            }
+        });
+    })()
+</script>
